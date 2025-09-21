@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footprint Forward - Environmental Campaign Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+   <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <img src="logo2.png" alt="Footprint Forward Logo" class="logo" onclick="showSection('home')">
+              <div class="nav-links-container">
+    <ul class="nav-menu">
+
+        <li><a href="#" onclick="showSection('campaigns')" class="nav-link">Campaigns</a></li>
+        <li><a href="#" onclick="showSection('carbon-calculator')" class="nav-link">Carbon Calculator</a></li>
+        <li><a href="#" onclick="showSection('about')" class="nav-link">About Us</a></li>
+        <li><a href="#" onclick="showSection('impact')" class="nav-link">Our Impact</a></li>
+
+        <li id="login-li">
+            <button id="login-btn" class="btn btn--primary">Login</button>
+        </li>
+<li id="user-profile-li" style="display: none;">
+    <div id="user-profile-menu">
+        <img id="user-avatar" src="" alt="User Avatar" onclick="showSection('profile')" style="cursor: pointer;" />
+    </div>
+</li>
+    </ul>
+</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content: Sections will be displayed here by app.js -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2>Join the Movement for a Cleaner Planet</h2>
+                        <p>Connect with like-minded individuals, create environmental campaigns, and make a real impact in your community. Together, we can build a sustainable future.</p>
+                        <div class="hero-actions">
+                            <button class="btn btn--primary" onclick="showSection('campaigns')">Explore Campaigns</button>
+                            <button class="btn btn--outline auth-required" onclick="openCreateCampaignModal()" style="display: none;">Start a Campaign</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Cards Section -->
+
+
+<div class="elegant-section">
+    <div class="container">
+        <div class="elegant-content-grid">
+            <div class="elegant-column main-text">
+                <h2 class="elegant-heading">Stepping Up Progress in this Defining Decade</h2>
+                <p>
+                    Alongside communities, we're urgently clearing obstacles and finding solutions to the climate and biodiversity crises.
+                </p>
+            </div>
+            <div class="elegant-column">
+                <h4 class="elegant-subheading">Who We Are ›</h4>
+                <p>
+                    We are dedicated staff, scientists and members advancing effective, lasting conservation in more than 80 countries and territories.
+                </p>
+                <h4 class="elegant-subheading">How To Help ›</h4>
+                <p>
+                    There are so many ways to make positive change for our planet. Volunteer with us. Learn how to reduce your carbon footprint. Donate to conservation work.
+                </p>
+            </div>
+            <div class="elegant-column">
+                <h4 class="elegant-subheading">What We Do ›</h4>
+                <p>
+                    To make the highest possible impact on the climate and biodiversity crises between now and 2030, we’re developing breakthrough ideas, amplifying local leaders and influencing policy.
+                </p>
+                <h4 class="elegant-subheading">Where We Work ›</h4>
+                <p>
+                    Dense rainforests, remote coral reefs and the hearts of major cities. Our strategies are as diverse as the habitats and geographies in which we work.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+           <div class="two-column-section">
+    <div class="container">
+        <div class="two-column-grid reversed-mobile">
+            <div class="two-column-image-container">
+                <img src="env2.png" alt="A person enjoying a green lifestyle, perhaps gardening or walking in nature" class="two-column-image">
+            </div>
+            <div class="two-column-content">
+                <h4 class="two-column-heading">OUR TOOL</h4>
+                <h3 class="two-column-title">Calculate Your Footprint</h3>
+                <p>
+                    Use our easy tool to measure your personal environmental impact. Discover where you can make a difference and get tips for a more sustainable lifestyle.
+                </p>
+              <button class="btn btn--primary btn--lg" onclick="showSection('carbon-calculator')">Calculate Now</button>            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="two-column-section">
+    <div class="container">
+        <div class="two-column-grid">
+            <div class="two-column-content">
+                <h4 class="two-column-heading">OUR PROGRESS</h4>
+                <h3 class="two-column-title">View Our Collective Impact</h3>
+                <p>
+                    From gallons of water saved to tons of waste collected, see the real-world results of our community's efforts and the progress we're making together.
+                </p>
+               <button class="btn btn--primary btn--lg" onclick="showSection('impact')">View Impact</button>
+            </div>
+            <div class="two-column-image-container">
+                <img src="env3.png" alt="Impact data visualization" class="two-column-image">
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Featured Campaigns -->
+            <div class="mission-section">
+    <div class="container">
+        <div class="mission-content-grid">
+            <div class="mission-image-container">
+                <img src="env1.png" alt="A beautiful forest scene" class="mission-image">
+            </div>
+            <div class="mission-text-container">
+                <h4 class="mission-heading">OUR MISSION</h4>
+                <h3 class="mission-statement">
+                    Conserving the lands and waters on which all life depends.
+                </h3>
+                <p>
+                    Every acre we protect and every river mile we restore begins with you. Your support helps us take on the dual threats of climate change and biodiversity loss across 80+ countries and territories.
+                </p>
+                <button class="btn btn--secondary btn--lg" onclick="showSection('about')">Learn More</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Campaigns Section -->
+                </section> <section id="campaigns" class="section">
+            <div class="container">
+                <div class="campaigns-header">
+                    <h2>Environmental Campaigns</h2>
+                    <button class="btn btn--primary auth-required" onclick="openCreateCampaignModal()" style="display: none;">+ Start New Campaign</button>
+                </div>
+
+                <div class="campaigns-filters">
+                    <select id="category-filter" class="form-control">
+                        <option value="">All Categories</option>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                    <input type="text" id="location-filter" class="form-control" placeholder="Filter by location">
+                </div>
+
+                <div id="campaigns-grid" class="campaigns-grid">
+                    <p>Loading campaigns...</p>
+                </div>
+            </div>
+        </section> <section id="create-profile" class="section">
+            <div class="container">
+                <h2>Create Your Profile</h2>
+                <p>Welcome! Please choose a unique username and complete your profile to continue.</p>
+
+                <form id="create-profile-form" class="campaign-form">
+                    <div class="form-group">
+                        <label class="form-label">Unique Username</label>
+                        <input type="text" id="profile-form-username" name="profile-username" class="form-control" required placeholder="e.g., greenthumb25">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Display Name (Visible to others)</label>
+                        <input type="text" id="profile-form-name" name="profile-name" class="form-control" required placeholder="Your full name">
+                    </div>
+                     <div class="form-group">
+                        <label class="form-label">Bio</label>
+                        <textarea id="profile-form-bio" name="profile-bio" class="form-control" rows="3" placeholder="Tell us a little about yourself..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location (Visible to others)</label>
+                        <input type="text" id="profile-form-location" name="profile-location" class="form-control" placeholder="e.g., Chennai, India">
+                    </div>
+
+ <section id="create-profile" class="section">
+            <div class="container">
+                <h2>Create Your Profile</h2>
+                <p>Welcome! Please choose a unique username and complete your profile to continue.</p>
+
+                <form id="create-profile-form" class="campaign-form">
+                    <div class="form-group">
+                        <label class="form-label">Unique Username</label>
+                        <input type="text" id="profile-form-username" name="profile-username" class="form-control" required placeholder="e.g., greenthumb25">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Display Name (Visible to others)</label>
+                        <input type="text" id="profile-form-name" name="profile-name" class="form-control" required placeholder="Your full name">
+                    </div>
+                     <div class="form-group">
+                        <label class="form-label">Bio</label>
+                        <textarea id="profile-form-bio" name="profile-bio" class="form-control" rows="3" placeholder="Tell us a little about yourself..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location (Visible to others)</label>
+                        <input type="text" id="profile-form-location" name="profile-location" class="form-control" placeholder="e.g., Chennai, India">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Save Profile & Continue</button>
+                    </div>
+                </form>
+            </div>
+        </section>                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Save Profile & Continue</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+    <div class="container">
+        <div class="profile-header">
+    <div class="profile-header-content">
+        <h2 id="profile-greeting">My Profile</h2>
+        <button id="profile-logout-btn" class="btn btn--secondary btn--sm logout-btn">Logout</button>
+    </div>
+</div>
+        <div class="profile-content">
+    <div class="profile-info-card">
+        <img id="profile-avatar-display" class="profile-avatar" src="" alt="User Avatar" />
+        <div class="profile-details">
+            <h3 id="profile-name">...</h3>
+            <p>Username: <strong id="profile-username">...</strong></p>
+            <p>Location: <span id="profile-location">...</span></p>
+            <p id="profile-joined-date">Member since ...</p>
+        </div>
+    </div>
+            </div>
+            <div class="profile-bio-card card">
+                <div class="card__body">
+                    <h4>About Me</h4>
+                    <p id="profile-bio">...</p>
+                </div>
+            </div>
+            </div>
+    </div>
+</section>       <!-- Carbon Calculator Section -->
+       <section id="carbon-calculator" class="section">
+    <div class="calculator-container">
+        <div class="calculator-header-new">
+            <h2>Calculate Your Carbon Footprint</h2>
+            <p>Enter your monthly consumption to discover your environmental impact</p>
+        </div>
+        <form id="carbon-calculator-form-new">
+    <div class="input-group-new">
+        <div class="input-field-new">
+            <label for="electricity-kwh">Monthly Electricity (kWh)</label>
+            <input type="number" id="electricity-kwh" placeholder="e.g., 300" required>
+        </div>
+        <div class="input-field-new">
+            <label for="fuel-liters">Monthly Fuel (Liters)</label>
+            <input type="number" id="fuel-liters" placeholder="e.g., 80" required>
+        </div>
+    </div>
+    
+    <div class="input-group-new household-members">
+        <label for="household-members">Number of household members</label>
+        <input type="number" id="household-members" placeholder="e.g., 3" min="1" value="1" required>
+    </div>
+
+    <div class="travel-section">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="travel-checkbox">
+            <label class="form-check-label" for="travel-checkbox">
+                Used flight or train last month?
+            </label>
+        </div>
+        
+        <div id="travel-inputs-container" class="hidden">
+            <div class="input-field-new">
+                <label for="flight-hours">Flight hours this month</label>
+                <input type="number" id="flight-hours" placeholder="e.g., 3" min="0">
+            </div>
+            <div class="input-field-new">
+                <label for="train-km">Train km this month</label>
+                <input type="number" id="train-km" placeholder="e.g., 100" min="0">
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="calculate-impact-btn">Calculate Impact</button>
+</form>
+        <div id="footprint-result" class="footprint-result hidden">
+            </div>
+    </div>
+</section>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <!-- ... existing about us HTML ... -->
+        </section>
+
+        <!-- Impact Section -->
+        <section id="impact" class="section">
+            <div class="container">
+                <h2>Our Collective Impact</h2>
+                <div class="impact-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-campaigns">...</div>
+                        <div class="stat-label">Campaigns Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-volunteers">...</div>
+                        <div class="stat-label">Volunteers Engaged</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="waste-collected">...</div>
+                        <div class="stat-label">KG Waste Collected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="co2-reduced">...</div>
+                        <div class="stat-label">KG CO2 Reduced</div>
+                    </div>
+                </div>
+            </div>
+
+    </main>
+
+    <!-- Modals -->
+    <!-- Create Campaign Modal -->
+<div id="create-campaign-modal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Start a New Campaign</h3>
+            <button class="close-btn" onclick="closeCreateCampaignModal()">&times;</button>
+        </div>
+
+        <form id="campaign-form">
+            <div class="form-group">
+                <label class="form-label">Campaign Title</label>
+                <input type="text" id="campaign-title" name="campaign-title" class="form-control" placeholder="e.g., Marina Beach Cleanup Drive" required>
+            </div>
+              <div class="form-group">
+                <label class="form-label">Campaign Photo</label>
+                <input type="file" id="campaign-image-upload" class="form-control" accept="image/png, image/jpeg">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea id="campaign-description" name="campaign-description" class="form-control" rows="4" placeholder="Describe your campaign goals and activities..." required></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" id="campaign-date" name="campaign-date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Time</label>
+                    <input type="time" id="campaign-time" name="campaign-time" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Location</label>
+                <input type="text" id="campaign-location" name="campaign-location" class="form-control" placeholder="e.g., Central Park, New York" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="campaign-category" name="campaign-category" class="form-control" required>
+                       </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Duration</label>
+                    <input type="text" id="campaign-duration" name="campaign-duration" class="form-control" placeholder="e.g., 3 hours" required>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn--outline" onclick="closeCreateCampaignModal()">Cancel</button>
+                <button type="submit" class="btn btn--primary">Create Campaign</button>
+            </div>
+        </form>
+    </div>
+</div>
+    <!-- Campaign Detail Modal -->
+    <div id="campaign-detail-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="detail-title">Campaign Details</h3>
+                <button class="close-btn" onclick="closeCampaignDetailModal()">&times;</button>
+            </div>
+          <div id="campaign-detail-content" class="campaign-detail">
+    <div class="detail-header">
+        <h3 id="detail-title-main">Campaign Title Here</h3>
+        <p>Organized by <strong id="detail-organizer">...</strong></p>
+    </div>
+          <div id="organizer-actions" class="form-actions" style="display: none; justify-content: flex-start; margin-bottom: 20px;">
+        <button id="edit-campaign-btn" class="btn btn--secondary">Edit Campaign</button>
+        <button id="delete-campaign-btn" class="btn btn--danger">Delete Campaign</button>
+    </div>
+    <div class="detail-meta">
+        <div class="detail-meta-item">
+            <div class="detail-meta-label">📅 Date & Time</div>
+            <div class="detail-meta-value" id="detail-datetime">...</div>
+        </div>
+        <div class="detail-meta-item">
+            <div class="detail-meta-label">📍 Location</div>
+            <div class="detail-meta-value" id="detail-location">...</div>
+        </div>
+        <div class="detail-meta-item">
+            <div class="detail-meta-label">⏳ Duration</div>
+            <div class="detail-meta-value" id="detail-duration">...</div>
+        </div>
+    </div>
+    <div class="detail-description">
+        <p id="detail-description-text">...</p>
+    </div>
+
+    <div class="volunteers-section">
+        <h4 class="section-title">Volunteers Joined</h4>
+        <div id="detail-volunteers-list" class="volunteers-list">
+            <p>No volunteers have joined yet.</p>
+        </div>
+    </div>
+
+    </div>
+        </div>
+    </div>
+
+    <!-- Supabase and App Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
