@@ -206,19 +206,17 @@ function createCampaignCard(campaign) {
 // In app.js, REPLACE your old calculateFootprint function with this one
 
 // Listener for the new form
-// NEW: Add listener for the travel checkbox
-const travelCheckbox = document.getElementById('travel-checkbox');
-const travelInputsContainer = document.getElementById('travel-inputs-container');
-travelCheckbox.addEventListener('change', () => {
-    if (travelCheckbox.checked) {
-        travelInputsContainer.classList.remove('hidden');
-    } else {
-        travelInputsContainer.classList.add('hidden');
+document.addEventListener('DOMContentLoaded', () => {
+    const carbonCalculatorFormNew = document.getElementById('carbon-calculator-form-new');
+    if (carbonCalculatorFormNew) {
+        carbonCalculatorFormNew.addEventListener('submit', calculateFootprint);
     }
 });
 
+
 function calculateFootprint(event) {
     event.preventDefault(); // Stop the page from reloading
+    console.log('calculateFootprint called'); // Debug log
 
     // 1. Get user inputs from the new form
     const electricityKWH = parseFloat(document.getElementById('electricity-kwh').value) || 0;
@@ -250,6 +248,8 @@ function calculateFootprint(event) {
 
     // 3. Prepare the results and display them
     displayFootprintResult(totalAnnualFootprintTonnes, individualAnnualFootprintTonnes);
+
+    // DO NOT call showSection('home') here!
 }
 
 function displayFootprintResult(totalTonnes, individualTonnes) {
@@ -365,18 +365,20 @@ async function saveProfile(event) {
         alert('You are not logged in.');
         return;
     }
-    const username = document.getElementById('profile-form-username').value;
-    const fullName = document.getElementById('profile-form-name').value;
-    const bio = document.getElementById('profile-form-bio').value;
-    const location = document.getElementById('profile-form-location').value;
+    const username = document.getElementById('profile-form-username').value.trim();
+    const fullName = document.getElementById('profile-form-name').value.trim();
+    const bio = document.getElementById('profile-form-bio').value.trim();
+    const location = document.getElementById('profile-form-location').value.trim();
 
-    const { error } = await _supabase.from('profiles').update({
+    // Try to upsert (insert or update) the profile
+    const { error } = await _supabase.from('profiles').upsert({
+        id: currentUser.id,
         username: username,
         full_name: fullName,
         bio: bio,
         location: location,
         updated_at: new Date()
-    }).eq('id', currentUser.id);
+    });
 
     if (error) {
         console.error('Error saving profile:', error);
@@ -559,7 +561,10 @@ async function openCampaignDetail(campaignId) {
     }
 }
 
-// ============== INITIALIZATION ==============
+function closeCampaignDetailModal() {
+    document.getElementById('campaign-detail-modal').classList.add('hidden');
+}
+
 // ============== INITIALIZATION ==============
 // ============== INITIALIZATION ==============
 function populateCategoryFilters() {
@@ -573,26 +578,43 @@ function populateCategoryFilters() {
 }
 
 // Add this listener for the new calculator form
-// PASTE THIS ENTIRE BLOCK AT THE VERY BOTTOM OF YOUR APP.JS FILE
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Run setup that doesn't depend on auth state
+    // Other event listeners and initializations...
+    
+    // Listen for form submissions on the new calculator form
+    const carbonCalculatorFormNew = document.getElementById('carbon-calculator-form-new');
+    if (carbonCalculatorFormNew) {
+        carbonCalculatorFormNew.addEventListener('submit', calculateFootprint);
+    }
+    
     populateCategoryFilters();
     document.getElementById('login-btn').addEventListener('click', signInWithGoogle);
-    document.getElementById('logout-btn').addEventListener('click', signOut);
+    document.getElementById('profile-logout-btn').addEventListener('click', signOut);
     document.getElementById('campaign-form').addEventListener('submit', createCampaign);
     document.getElementById('create-profile-form').addEventListener('submit', saveProfile);
-    document.getElementById('carbon-calculator-form-new').addEventListener('submit', calculateFootprint);
-
-    // Now, check the session BEFORE rendering the initial view
+    
+    // --- THIS IS THE FIX ---
+    // Check the session and render the initial view only after the session is known
     _supabase.auth.getSession().then(({ data: { session } }) => {
         if (session) {
             currentUser = session.user;
-            // The onAuthStateChange listener will handle the full UI update and navigation logic
+            updateUIForAuthenticatedUser();
         } else {
+            currentUser = null;
             updateUIForGuestUser();
         }
-        // Show the initial section only AFTER session is checked
         showSection('home');
     });
+    // Event listener for the new travel checkbox
+    const travelCheckbox = document.getElementById('travel-checkbox');
+    if (travelCheckbox) {
+        travelCheckbox.addEventListener('change', (event) => {
+            const travelContainer = document.getElementById('travel-inputs-container');
+            if (event.target.checked) {
+                travelContainer.classList.remove('hidden');
+            } else {
+                travelContainer.classList.add('hidden');
+            }
+        });
+    }
 });
