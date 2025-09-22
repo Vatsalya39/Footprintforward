@@ -15,11 +15,11 @@ let currentUser = null;
 const EMISSION_FACTORS = {
     // Emission factors (simplified, global averages for demonstration)
     // Source: Figures are illustrative approximations based on data from EPA, DEFRA & other sources.
-    
+
     // Electricity: kg CO2e per kWh (global average mix)
-    electricity_kwh: 0.35, 
+    electricity_kwh: 0.35,
     // Fuel (Petrol/Gasoline): kg CO2e per liter
-    fuel_liter: 2.31, 
+    fuel_liter: 2.31,
     // Flights: kg CO2e per hour (simplified for single input)
     flight_per_hour: 80,
     // Trains: kg CO2e per kilometer
@@ -88,6 +88,38 @@ function updateUIForGuestUser() {
     document.querySelectorAll('.auth-required').forEach(el => el.style.display = 'none');
 }
 // ============== DATA FETCHING & RENDERING ==============
+// PASTE THIS NEW FUNCTION INTO APP.JS
+
+async function fetchAndRenderImpactStats() {
+    // Fetch total number of campaigns
+    const { count: campaignCount, error: campaignError } = await _supabase
+        .from('campaigns')
+        .select('*', { count: 'exact', head: true });
+
+    if (campaignError) {
+        console.error("Error fetching campaign count:", campaignError);
+    } else {
+        document.getElementById('total-campaigns-stat').innerText = campaignCount;
+    }
+
+    // Fetch all campaigns to sum up volunteers
+    const { data: campaigns, error: volunteersError } = await _supabase
+        .from('campaigns')
+        .select('volunteers_count');
+
+    if (volunteersError) {
+        console.error("Error fetching volunteer data:", volunteersError);
+    } else {
+        const totalVolunteers = campaigns.reduce((sum, campaign) => sum + campaign.volunteers_count, 0);
+        document.getElementById('total-volunteers-stat').innerText = totalVolunteers;
+    }
+
+    // NOTE: The following are placeholders. To make these work, you would need to add
+    // 'trees_planted' and 'waste_collected' columns to your 'campaigns' table.
+    document.getElementById('trees-planted-stat').innerText = '0'; // Placeholder
+    document.getElementById('waste-collected-stat').innerText = '0'; // Placeholder
+}
+
 async function fetchAndRenderCampaigns() {
     const campaignsGrid = document.getElementById('campaigns-grid');
     campaignsGrid.innerHTML = '<p>Loading campaigns...</p>';
@@ -254,7 +286,7 @@ function calculateFootprint(event) {
 
 function displayFootprintResult(totalTonnes, individualTonnes) {
     const resultDiv = document.getElementById('footprint-result');
-    
+
     let rating = '';
     let ratingDescription = '';
     let textColor = 'var(--color-primary-green-dark)'; // Default text color is a dark green
@@ -458,6 +490,7 @@ function openEditCampaignModal(campaign) {
 
 
 // REPLACE your old showSection function in app.js with this one
+
 function showSection(sectionId) {
     document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
@@ -468,13 +501,16 @@ function showSection(sectionId) {
     const activeLink = document.querySelector(`.nav-link[onclick*="'${sectionId}'"]`);
     if (activeLink) activeLink.classList.add('active');
 
-    // Load data for the shown section
+    // Load data for the specific section that is being shown
     if (sectionId === 'campaigns') {
         fetchAndRenderCampaigns();
     }
-    // --- NEW LOGIC ADDED HERE ---
     if (sectionId === 'profile') {
         fetchAndRenderProfile();
+    }
+    // --- NEW LOGIC ADDED HERE ---
+    if (sectionId === 'impact') {
+        fetchAndRenderImpactStats();
     }
 }
 function openCreateCampaignModal() {
@@ -580,19 +616,19 @@ function populateCategoryFilters() {
 // Add this listener for the new calculator form
 document.addEventListener('DOMContentLoaded', () => {
     // Other event listeners and initializations...
-    
+
     // Listen for form submissions on the new calculator form
     const carbonCalculatorFormNew = document.getElementById('carbon-calculator-form-new');
     if (carbonCalculatorFormNew) {
         carbonCalculatorFormNew.addEventListener('submit', calculateFootprint);
     }
-    
+
     populateCategoryFilters();
     document.getElementById('login-btn').addEventListener('click', signInWithGoogle);
     document.getElementById('profile-logout-btn').addEventListener('click', signOut);
     document.getElementById('campaign-form').addEventListener('submit', createCampaign);
     document.getElementById('create-profile-form').addEventListener('submit', saveProfile);
-    
+
     // --- THIS IS THE FIX ---
     // Check the session and render the initial view only after the session is known
     _supabase.auth.getSession().then(({ data: { session } }) => {
