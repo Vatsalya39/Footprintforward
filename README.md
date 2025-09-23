@@ -1,7 +1,7 @@
 # 👣 Footprint Forward
 
 <div align="center">
-  <img src="logo.png" alt="Footprint Forward Logo" width="150"/>
+  <img src="logo2.png" alt="Footprint Forward Logo" width="150"/>
   <p><strong>A community-driven web platform designed to transform environmental consciousness into tangible, local action.</strong></p>
 
   <p>
